@@ -1,0 +1,179 @@
+
+### ==========================================
+### 1. CREATE EV STATION
+### ==========================================
+
+POST http://localhost:8080/api/ev/stations
+Content-Type: application/json
+
+{
+  "stationName": "Chennai Central EV Station",
+  "location": "Chennai Central",
+  "city": "Chennai",
+  "status": "ACTIVE",
+  "totalPowerCapacity": 240.0
+}
+
+
+### ==========================================
+### 2. GET ALL STATIONS
+### ==========================================
+
+GET http://localhost:8080/api/ev/stations
+
+
+### ==========================================
+### 3. CREATE CHARGER
+### ==========================================
+
+POST http://localhost:8080/api/ev/chargers
+Content-Type: application/json
+
+{
+  "chargerCode": "CHG-001",
+  "chargerType": "DC_FAST",
+  "powerCapacity": 120.0,
+  "connectorType": "CCS2",
+  "status": "AVAILABLE",
+  "stationId": 1
+}
+
+
+### ==========================================
+### 4. GET ALL CHARGERS
+### ==========================================
+
+GET http://localhost:8080/api/ev/chargers
+
+
+### ==========================================
+### 5. CREATE PEAK TARIFF
+### ==========================================
+
+POST http://localhost:8080/api/ev/tariffs
+Content-Type: application/json
+
+{
+  "tariffName": "Peak Tariff",
+  "baseRate": 8.0,
+  "multiplier": 1.5,
+  "startTime": "18:00:00",
+  "endTime": "22:00:00",
+  "tariffType": "PEAK",
+  "active": true
+}
+
+
+### ==========================================
+### 6. GET ALL TARIFFS
+### ==========================================
+
+GET http://localhost:8080/api/ev/tariffs
+
+
+### ==========================================
+### 7. START CHARGING SESSION
+### ==========================================
+
+POST http://localhost:8080/api/ev/sessions
+Content-Type: application/json
+
+{
+  "sessionCode": "SES-001",
+  "driverName": "Arun Kumar",
+  "startMeterReading": 1000.0,
+  "chargerId": 1
+}
+
+
+### ==========================================
+### 8. GET ALL CHARGING SESSIONS
+### ==========================================
+
+GET http://localhost:8080/api/ev/sessions
+
+
+### ==========================================
+### 9. STOP CHARGING SESSION
+### Replace 1 with the actual session ID.
+### ==========================================
+
+PUT http://localhost:8080/api/ev/sessions/1/stop
+Content-Type: application/json
+
+{
+  "endMeterReading": 1025.0,
+  "tariffId": 1
+}
+
+
+### ==========================================
+### 10. GET ALL INVOICES
+### ==========================================
+
+GET http://localhost:8080/api/ev/invoices
+
+
+### ==========================================
+### 11. GET ALL PAYMENTS
+### ==========================================
+
+GET http://localhost:8080/api/ev/payments
+
+
+### ==========================================
+### 12. GET ALL CONTACTS
+### ==========================================
+
+GET http://localhost:8080/api/contacts
+
+
+### ==========================================
+### 13. GET ALL PRODUCTS
+### ==========================================
+
+GET http://localhost:8080/api/products
+
+
+### ==========================================
+### 14. GET ALL VENDORS
+### ==========================================
+
+GET http://localhost:8080/api/vendors
+
+
+### ==========================================
+### 15. GET ALL PURCHASE ORDERS
+### ==========================================
+
+GET http://localhost:8080/api/purchase-orders
+
+
+### ==========================================
+### 16. GET ALL ACCOUNTS
+### ==========================================
+
+GET http://localhost:8080/api/accounts
+
+
+### ==========================================
+### 17. GET ALL JOURNAL ENTRIES
+### ==========================================
+
+GET http://localhost:8080/api/journal-entries
+
+
+### ==========================================
+### 18. GET ALL BUDGETS
+### ==========================================
+
+GET http://localhost:8080/api/budgets
+
+### Delete EV Station
+DELETE http://localhost:8080/api/ev/stations/1
+
+### Delete Charger
+DELETE http://localhost:8080/api/ev/chargers/1
+
+### Delete Tariff
+DELETE http://localhost:8080/api/ev/tariffs/1

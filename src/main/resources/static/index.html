@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EV Charging Management System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header>
+    <div class="logo">⚡ EV Charge</div>
+
+    <nav>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#stations">Stations</a>
+        <a href="#chargers">Chargers</a>
+        <a href="#sessions">Sessions</a>
+        <a href="#reports">Reports</a>
+    </nav>
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>EV Charging Management System</h1>
+
+        <p>
+            Manage charging stations, chargers and charging
+            sessions from one simple dashboard.
+        </p>
+
+        <button onclick="scrollToSection('stations')">
+            View Charging Stations
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<section class="dashboard" id="dashboard">
+
+    <h2>Dashboard</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="icon">⚡</div>
+            <h3 id="stationCount">0</h3>
+            <p>Charging Stations</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🔌</div>
+            <h3 id="chargerCount">0</h3>
+            <p>Chargers</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🚗</div>
+            <h3 id="sessionCount">0</h3>
+            <p>Charging Sessions</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🟢</div>
+            <h3 id="activeSessionCount">0</h3>
+            <p>Active Sessions</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= STATIONS ================= -->
+
+<section class="section stations" id="stations">
+
+    <h2>Charging Stations</h2>
+
+    <div class="form-container">
+
+        <h3>Add New Charging Station</h3>
+
+        <div class="form-grid">
+
+            <input
+                    type="text"
+                    id="stationName"
+                    placeholder="Station Name">
+
+            <input
+                    type="text"
+                    id="location"
+                    placeholder="Location">
+
+            <input
+                    type="text"
+                    id="city"
+                    placeholder="City">
+
+            <select id="stationStatus">
+                <option value="ACTIVE">ACTIVE</option>
+                <option value="INACTIVE">INACTIVE</option>
+                <option value="MAINTENANCE">MAINTENANCE</option>
+            </select>
+
+            <input
+                    type="number"
+                    id="power"
+                    placeholder="Power Capacity">
+
+        </div>
+
+        <button onclick="createStation()">
+            + Add Station
+        </button>
+
+    </div>
+
+
+    <div class="section-header">
+
+        <h3>Available Stations</h3>
+
+        <button onclick="loadStations()">
+            🔄 Refresh
+        </button>
+
+    </div>
+
+    <div id="stationList" class="item-grid">
+
+        <p class="loading">
+            Loading stations...
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CHARGERS ================= -->
+
+<section class="section chargers-section" id="chargers">
+
+    <h2>Charger Management</h2>
+
+    <!-- Charger statistics -->
+
+    <div class="mini-cards">
+
+        <div class="mini-card">
+            <span>🔌</span>
+            <strong id="totalChargers">0</strong>
+            <p>Total Chargers</p>
+        </div>
+
+        <div class="mini-card">
+            <span>🟢</span>
+            <strong id="availableChargers">0</strong>
+            <p>Available</p>
+        </div>
+
+        <div class="mini-card">
+            <span>🚗</span>
+            <strong id="busyChargers">0</strong>
+            <p>In Use</p>
+        </div>
+
+        <div class="mini-card">
+            <span>🔴</span>
+            <strong id="faultyChargers">0</strong>
+            <p>Faulty</p>
+        </div>
+
+    </div>
+
+
+    <!-- Add charger -->
+
+    <div class="form-container">
+
+        <h3>Add New Charger</h3>
+
+        <div class="form-grid">
+
+            <input
+                    type="text"
+                    id="chargerCode"
+                    placeholder="Charger Code">
+
+            <select id="chargerType">
+
+                <option value="DC_FAST">
+                    DC_FAST
+                </option>
+
+                <option value="AC">
+                    AC
+                </option>
+
+            </select>
+
+            <input
+                    type="number"
+                    id="chargerPower"
+                    placeholder="Power Capacity">
+
+            <input
+                    type="text"
+                    id="connectorType"
+                    placeholder="Connector Type">
+
+            <select id="chargerStatus">
+
+                <option value="AVAILABLE">
+                    AVAILABLE
+                </option>
+
+                <option value="IN_USE">
+                    IN_USE
+                </option>
+
+                <option value="FAULTY">
+                    FAULTY
+                </option>
+
+                <option value="MAINTENANCE">
+                    MAINTENANCE
+                </option>
+
+            </select>
+
+            <select id="chargerStation">
+
+                <option value="">
+                    Select Station
+                </option>
+
+            </select>
+
+        </div>
+
+        <button onclick="createCharger()">
+            + Add Charger
+        </button>
+
+    </div>
+
+
+    <!-- Charger list -->
+
+    <div class="section-header">
+
+        <h3>Available Chargers</h3>
+
+        <button onclick="loadChargers()">
+            🔄 Refresh
+        </button>
+
+    </div>
+
+    <div id="chargerList" class="item-grid">
+
+        <p class="loading">
+            Loading chargers...
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= SESSIONS ================= -->
+
+<section class="section sessions-section" id="sessions">
+
+    <h2>Charging Sessions</h2>
+
+
+    <!-- Session statistics -->
+
+    <div class="mini-cards">
+
+        <div class="mini-card">
+            <span>🚗</span>
+            <strong id="totalSessions">0</strong>
+            <p>Total Sessions</p>
+        </div>
+
+        <div class="mini-card">
+            <span>⚡</span>
+            <strong id="startedSessions">0</strong>
+            <p>Active</p>
+        </div>
+
+        <div class="mini-card">
+            <span>✅</span>
+            <strong id="completedSessions">0</strong>
+            <p>Completed</p>
+        </div>
+
+        <div class="mini-card">
+            <span>🔋</span>
+            <strong id="totalEnergy">0</strong>
+            <p>Total Energy (kWh)</p>
+        </div>
+
+    </div>
+
+
+    <!-- Start session -->
+
+    <div class="form-container">
+
+        <h3>Start Charging Session</h3>
+
+        <div class="form-grid">
+
+            <input
+                    type="text"
+                    id="sessionCode"
+                    placeholder="Session Code">
+
+            <input
+                    type="text"
+                    id="driverName"
+                    placeholder="Driver Name">
+
+            <input
+                    type="number"
+                    id="startMeterReading"
+                    placeholder="Start Meter Reading">
+
+            <select id="sessionCharger">
+
+                <option value="">
+                    Select Charger
+                </option>
+
+            </select>
+
+        </div>
+
+        <button onclick="startSession()">
+            ▶ Start Charging
+        </button>
+
+    </div>
+
+
+    <!-- Session list -->
+
+    <div class="section-header">
+
+        <h3>Charging Session Records</h3>
+
+        <button onclick="loadSessions()">
+            🔄 Refresh
+        </button>
+
+    </div>
+
+    <div id="sessionList" class="item-grid">
+
+        <p class="loading">
+            Loading sessions...
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= REPORTS ================= -->
+
+<section class="section reports-section" id="reports">
+
+    <h2>Reports & Analytics</h2>
+
+    <div class="report-grid">
+
+        <div class="report-card">
+
+            <span>⚡</span>
+
+            <h3 id="reportStations">
+                0
+            </h3>
+
+            <p>Total Stations</p>
+
+        </div>
+
+
+        <div class="report-card">
+
+            <span>🔌</span>
+
+            <h3 id="reportChargers">
+                0
+            </h3>
+
+            <p>Total Chargers</p>
+
+        </div>
+
+
+        <div class="report-card">
+
+            <span>🚗</span>
+
+            <h3 id="reportSessions">
+                0
+            </h3>
+
+            <p>Total Sessions</p>
+
+        </div>
+
+
+        <div class="report-card">
+
+            <span>🔋</span>
+
+            <h3 id="reportEnergy">
+                0
+            </h3>
+
+            <p>Total Energy (kWh)</p>
+
+        </div>
+
+
+        <div class="report-card">
+
+            <span>💰</span>
+
+            <h3 id="reportRevenue">
+                ₹0
+            </h3>
+
+            <p>Total Revenue</p>
+
+        </div>
+
+
+        <div class="report-card">
+
+            <span>✅</span>
+
+            <h3 id="reportCompleted">
+                0
+            </h3>
+
+            <p>Completed Sessions</p>
+
+        </div>
+
+    </div>
+
+
+    <div class="report-message">
+
+        <h3>📊 System Summary</h3>
+
+        <p id="reportSummary">
+            Loading report information...
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <p>
+        © 2026 EV Charging Management System
+    </p>
+
+    <p>
+        Spring Boot + MySQL
+    </p>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
